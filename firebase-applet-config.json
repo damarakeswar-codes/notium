@@ -1,10 +1,9 @@
 {
-  "projectId": "gen-lang-client-0284398269",
-  "appId": "1:1025614344572:web:409e797ec224c565f4b4f9",
-  "apiKey": "AIzaSyCG3MmOtUnwCW5sSNZ3iw-YckfuDmFwP3g",
-  "authDomain": "gen-lang-client-0284398269.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-06db8c6e-acff-46a9-b052-7b3373be9800",
-  "storageBucket": "gen-lang-client-0284398269.firebasestorage.app",
-  "messagingSenderId": "1025614344572",
-  "measurementId": ""
+  "projectId": "notium-v1",
+  "appId": "1:1044774278801:web:ff07686a3e0e3090031130",
+  "apiKey": "AIzaSyAkmUhhhWGbRiFLI_vCNtZ2lAx9113c8AY",
+  "authDomain": "notium-v1.firebaseapp.com",
+  "storageBucket": "notium-v1.firebasestorage.app",
+  "messagingSenderId": "1044774278801",
+  "measurementId": "G-9SLZ67LM3C"
 }
