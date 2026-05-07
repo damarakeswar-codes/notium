@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, ChevronRight, MoreHorizontal } from 'lucide-react';
+import { FileText, Trash } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -29,7 +29,7 @@ export default function PageCard({ note, isActive, onClick, onDelete, isDarkMode
           )}>
             {note.title || 'Untitled'}
           </h3>
-          <span className="text-[10px] text-notion-ink-muted dark:text-notion-dark-ink-muted opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className="ml-1 text-[7px] text-notion-ink-muted dark:text-notion-dark-ink-muted opacity-0 group-hover:opacity-100 transition-opacity">
             {formatDistanceToNow(new Date(note.updatedAt), { addSuffix: true })}
           </span>
         </div>
@@ -43,9 +43,9 @@ export default function PageCard({ note, isActive, onClick, onDelete, isDarkMode
           e.stopPropagation();
           onDelete(note.id);
         }}
-        className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 rounded-lg transition-all"
+        className="cursor-pointer opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 rounded-lg transition-all"
       >
-        <MoreHorizontal size={14} />
+        <Trash size={14} />
       </button>
     </div>
   );

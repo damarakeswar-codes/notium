@@ -55,7 +55,7 @@ export const useNoteStore = create(
       notes: [],
       activeNoteId: null,
       searchQuery: '',
-      isDarkMode: false,
+      isDarkMode: true,
       isSidebarOpen: false,
       isSidebarCollapsed: false,
       isSaving: false,

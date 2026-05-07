@@ -9,13 +9,26 @@ import Logo from './Logo';
 export default function Login() {
   const { isDarkMode } = useNoteStore();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async () => {
+    setErrorMessage('');
     setLoading(true);
     try {
       await signInWithGoogle();
     } catch (error) {
       console.error("Login failed:", error);
+      const code = error && typeof error === 'object' ? error.code : undefined;
+
+      if (code === 'auth/operation-not-allowed') {
+        setErrorMessage('Google sign-in is disabled in Firebase. Enable it in Firebase Console > Authentication > Sign-in method > Google.');
+      } else if (code === 'auth/popup-closed-by-user') {
+        setErrorMessage('The sign-in popup was closed before completing login.');
+      } else if (code === 'auth/popup-blocked') {
+        setErrorMessage('Your browser blocked the sign-in popup. Please allow popups and try again.');
+      } else {
+        setErrorMessage('Unable to sign in right now. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -71,7 +84,8 @@ export default function Login() {
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               className="flex justify-center mb-6"
             >
-              <Logo size={64} className="shadow-2xl shadow-purple-500/20 rounded-3xl" />
+              <img alt='Logo' src='../../icon.png' className='w-16 object-contain' />
+              {/* <Logo size={64} className="shadow-2xl shadow-purple-500/20 rounded-3xl" /> */}
             </motion.div>
             
             <h1 className="text-3xl font-bold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
@@ -83,6 +97,18 @@ export default function Login() {
           </div>
 
           <div className="space-y-4">
+            {errorMessage && (
+              <div
+                className={cn(
+                  "rounded-xl border px-4 py-3 text-sm",
+                  isDarkMode
+                    ? "border-red-500/30 bg-red-500/10 text-red-200"
+                    : "border-red-200 bg-red-50 text-red-700"
+                )}
+              >
+                {errorMessage}
+              </div>
+            )}
             <motion.button 
               whileHover={{ scale: 1.02, y: -1 }}
               whileTap={{ scale: 0.98 }}
@@ -122,7 +148,7 @@ export default function Login() {
               )}
             </motion.button>
 
-            <div className="relative py-4">
+            {/* <div className="relative py-4">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200 dark:border-white/10"></div>
               </div>
@@ -131,9 +157,9 @@ export default function Login() {
                   or continue with
                 </span>
               </div>
-            </div>
+            </div> */}
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* <div className="grid grid-cols-2 gap-4">
               <motion.button 
                 whileHover={{ y: -1, backgroundColor: isDarkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.02)" }}
                 whileTap={{ scale: 0.98 }}
@@ -156,7 +182,7 @@ export default function Login() {
                 <Mail size={18} />
                 <span className="text-sm">Email</span>
               </motion.button>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-10 pt-6 border-t border-gray-100 dark:border-white/5 text-center">

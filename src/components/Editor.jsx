@@ -184,7 +184,7 @@ export default function Editor() {
           <div className="w-20 h-20 bg-gray-50 dark:bg-notion-dark-secondary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-inner">
             <FileText size={40} className="text-gray-300 dark:text-gray-600" />
           </div>
-          <h2 className="text-2xl font-display font-semibold text-gray-800 dark:text-gray-200">Select a page</h2>
+          <h2 className="text-2xl font-display font-semibold dark:text-gray-700">Select a page</h2>
           <p className="text-sm max-w-xs mx-auto">Choose a page from the sidebar to start writing or create a new one.</p>
         </motion.div>
       </div>
@@ -194,7 +194,7 @@ export default function Editor() {
   return (
     <div className={cn(
       "flex-1 flex flex-col h-screen overflow-hidden transition-colors duration-200",
-      isDarkMode ? "bg-notion-dark-bg text-notion-dark-ink" : "bg-white text-notion-ink"
+      isDarkMode ? " text-notion-dark-ink" : "bg-white text-notion-ink"
     )}>
       {/* Top Navigation / Breadcrumbs */}
       <div className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-gray-100 dark:border-notion-dark-border glass-panel sticky top-0 z-30">
@@ -253,12 +253,12 @@ export default function Editor() {
       </div>
 
       {/* Editor Content */}
-      <div className="flex-1 overflow-y-auto no-scrollbar px-4 sm:px-8 md:px-12 lg:px-24 py-8 md:py-12">
+      <div className="flex-1 overflow-y-auto no-scrollbar px-4 sm:px-4 md:px-8 lg:px-12 py-4 md:py-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-[700px] mx-auto"
+          className="mx-auto"
         >
           {/* Tags */}
           <div className="mb-8 flex flex-wrap gap-2 items-center group">
@@ -287,18 +287,29 @@ export default function Editor() {
           </div>
 
           {/* Title */}
-          <input 
-            type="text" 
-            placeholder="Untitled"
-            className="w-full text-4xl md:text-5xl font-display font-bold bg-transparent border-none outline-none mb-10 placeholder:text-slate-300 dark:placeholder:text-slate-700 tracking-tight"
-            value={title}
-            onChange={handleTitleChange}
-          />
-
+           {isPreview ? (
+            <div 
+              className="w-full text-4xl md:text-5xl font-display font-bold bg-transparent border-none outline-none mb-10 placeholder:text-slate-300 dark:placeholder:text-slate-700 tracking-tight"
+            >
+              <ReactMarkdown>{title || '*Untitled*'}</ReactMarkdown>
+            </div>
+          ) : (
+            <input 
+              type="text" 
+              placeholder="Untitled"
+              className="w-full text-4xl md:text-5xl font-display font-bold bg-transparent border-none outline-none mb-10 placeholder:text-slate-300 dark:placeholder:text-slate-700 tracking-tight"
+              value={title}
+              onChange={handleTitleChange}
+            />
+            )
+          }
+ 
           {/* Body */}
           <div onMouseUp={handleSelection} className="relative min-h-[500px]">
             {isPreview ? (
-              <div className="prose dark:prose-invert max-w-none animate-in fade-in duration-500">
+              <div 
+                className="w-full h-full bg-transparent border-none outline-none resize-none text-lg md:text-xl leading-[1.8] placeholder:text-slate-300 dark:placeholder:text-slate-700 font-sans"
+              >
                 <ReactMarkdown>{content || '*No content yet*'}</ReactMarkdown>
               </div>
             ) : (

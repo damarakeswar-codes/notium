@@ -76,57 +76,33 @@ export default function Sidebar() {
         )}
       >
         {/* Header / User Profile */}
-        <div className="p-4 border-b border-gray-100 dark:border-notion-dark-border">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2 font-semibold text-sm">
-              <Logo size={28} />
-              <span className="font-display tracking-tight text-notion-ink dark:text-notion-dark-ink">Notium</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <button 
-                onClick={toggleDarkMode}
-                className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors"
-              >
-                {isDarkMode ? <Sun size={14} /> : <Moon size={14} />}
-              </button>
-              <button 
-                onClick={toggleSidebarCollapse}
-                className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors hidden md:block"
-              >
-                <ChevronLeft size={14} />
-              </button>
-              <button 
-                onClick={() => setSidebarOpen(false)}
-                className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors md:hidden"
-              >
-                <X size={14} />
-              </button>
-            </div>
+        <div className="p-4 border-b border-gray-100 dark:border-notion-dark-border flex items-center justify-between">
+          <div className="flex items-center gap-2 font-semibold text-sm">
+            {/* <span className="font-display tracking-tight text-notion-ink dark:text-notion-dark-ink">Notium</span> */}
+            <img alt='Logo' src='../../logo.png' className='w-24 object-contain' />
           </div>
-
-          <div className="flex items-center justify-between group p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-white/5 transition-all cursor-pointer">
-            <div className="flex items-center gap-3 overflow-hidden">
-              {user?.photoURL ? (
-                <img src={user.photoURL} alt="User" className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm" />
-              ) : (
-                <div className="w-8 h-8 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                  <UserIcon size={14} />
-                </div>
-              )}
-              <div className="flex flex-col overflow-hidden">
-                <span className="text-sm font-semibold truncate text-notion-ink dark:text-notion-dark-ink">{user?.displayName || 'User'}</span>
-                <span className="text-[10px] text-notion-ink-muted dark:text-notion-dark-ink-muted truncate">{user?.email}</span>
-              </div>
-            </div>
-            <button 
-              onClick={(e) => { e.stopPropagation(); logout(); }}
-              className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 rounded-lg transition-all"
+          <div className="flex items-center gap-1">
+            {/* <button 
+              onClick={toggleDarkMode}
+              className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors"
             >
-              <LogOut size={14} />
+              {isDarkMode ? <Sun size={14} /> : <Moon size={14} />}
+            </button> */}
+            <button 
+              onClick={toggleSidebarCollapse}
+              className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors hidden md:block"
+            >
+              <ChevronLeft size={14} />
+            </button>
+            <button 
+              onClick={() => setSidebarOpen(false)}
+              className="p-1.5 hover:bg-gray-200 dark:hover:bg-white/5 rounded-lg transition-colors md:hidden"
+            >
+              <X size={14} />
             </button>
           </div>
         </div>
-
+ 
         {/* Search Input (Integrated) */}
         <div className="px-3 mt-4">
           <div className={cn(
@@ -179,6 +155,28 @@ export default function Sidebar() {
               />
             ))
           )}
+        </div>
+        
+        <div className="flex items-center justify-between group p-2 transition-all mb-4">
+          <div className="flex items-center gap-3 overflow-hidden">
+            {user?.photoURL ? (
+              <img src={user.photoURL} alt="User" className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm" />
+            ) : (
+              <div className="w-8 h-8 bg-gray-200 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <UserIcon size={14} />
+              </div>
+            )}
+            <div className="flex flex-col overflow-hidden">
+              <span className="text-sm font-semibold truncate text-notion-ink dark:text-notion-dark-ink">{user?.displayName || 'User'}</span>
+              <span className="text-[10px] text-notion-ink-muted dark:text-notion-dark-ink-muted truncate">{user?.email}</span>
+            </div>
+          </div>
+          <button 
+            onClick={(e) => { e.stopPropagation(); logout(); }}
+            className="opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 text-gray-400 hover:text-red-500 rounded-lg transition-all"
+          >
+            <LogOut size={14} />
+          </button>
         </div>
       </motion.div>
 

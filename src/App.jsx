@@ -19,14 +19,18 @@ export default function App() {
           displayName: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,
         };
-        
-        // Sync user to firestore
-        const userRef = doc(db, 'users', firebaseUser.uid);
-        const snap = await getDoc(userRef);
-        if (!snap.exists()) {
-          await setDoc(userRef, { ...userDoc, role: 'user' });
+
+        // Allow login state even when Firestore is temporarily offline.
+        try {
+          const userRef = doc(db, 'users', firebaseUser.uid);
+          const snap = await getDoc(userRef);
+          if (!snap.exists()) {
+            await setDoc(userRef, { ...userDoc, role: 'user' });
+          }
+        } catch (error) {
+          console.warn('Firestore unavailable during user sync:', error);
         }
-        
+
         setUser(userDoc);
       } else {
         setUser(null);
